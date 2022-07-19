@@ -258,6 +258,20 @@ class CMStorages(Storage):
         status = response.ok
         return status
 
+    def virtual_corpus_manager(self, corpus_id, virtual_corpus_name):
+        params = (
+            ('accountId', self.account_id),
+            ('id', corpus_id),
+            ('filename', virtual_corpus_name)
+        )
+
+        response = requests.get(self.host_url + '/corpus/virtual', params=params)
+        if response.status_code != 200:
+            raise RuntimeError(
+                'cannot create virtual corpus "%s" from %s (response code %d)' % (filename, corpus_id, response.status_code))
+        status = response.ok
+        return status
+
     def _get_corpus_info_from_remote_path(self, remote_path):
         data = {
             'prefix': self._create_path_from_root(remote_path),

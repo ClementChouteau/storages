@@ -240,6 +240,11 @@ class StorageClient:
         client, remote_path = self._get_storage(remote_path, storage_id=storage_id)
         return client.delete_corpus_manager(corpus_id)
 
+    def virtual_corpus_manager(self, remote_path, corpus_id, virtual_corpus_name, storage_id=None):
+        """Create a copy of a corpus with no duplication of the storage of segments."""
+        client, remote_path = self._get_storage(remote_path, storage_id=storage_id)
+        return client.virtual_corpus_manager(corpus_id, virtual_corpus_name)
+
     def search(self, remote_path, remote_ids, search_query, nb_skip, nb_returns, storage_id=None):
         """List corpus segments from a storage."""
         client, remote_path = self._get_storage(remote_path, storage_id=storage_id)
